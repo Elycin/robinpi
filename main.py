@@ -17,8 +17,8 @@ robinhood_interface.login(
 )
 
 # create seven segment device
-serial = spi(port=0, device=0, gpio=int(config['GPIO']['DIN']))
-device = max7219(serial, cascaded=1)
+serial = spi(port=0, device=0, gpio=noop())
+device = max7219(serial)
 seg = sevensegment(device)
 
 while True:

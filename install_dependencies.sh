@@ -16,7 +16,6 @@ APT_GET_CMD=$(which apt-get 2>/dev/null)
 function apt_install_dependency() {
   echo "Checkig for dependency: $1"
   PKG_OK=$(dpkg-query -W --showformat='${Status}\n' $1 | grep "install ok installed")
-  echo Checking for somelib: $PKG_OK
   if [ "" == "$PKG_OK" ]; then
     echo "Package $1 does not exist on the system - it will be installed."
     sudo apt install $1 -y &>/dev/null

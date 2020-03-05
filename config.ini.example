@@ -1,0 +1,7 @@
+[robinhood]
+username =
+password =
+multi_factor_secret =
+
+[ticker]
+refresh_rate = 2

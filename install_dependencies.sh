@@ -44,6 +44,7 @@ if [[ ! -z $YUM_CMD ]]; then
   yum_install_dependency python3-devel
   yum_install_dependency python3-pip
   yum_install_dependency python3-dateutil
+  yum_install_dependency libopenjp2-7-devel
 
 # Debian/Ubuntu (Desktop and Server Distros).
 elif [[ ! -z $APT_GET_CMD ]]; then
@@ -54,6 +55,7 @@ elif [[ ! -z $APT_GET_CMD ]]; then
   apt_install_dependency python3-dev
   apt_install_dependency python3-pip
   apt_install_dependency python3-dateutil
+  apt_install_dependency libopenjp2-7
 else
   echo "Unable to find a suitable package manager."
   exit

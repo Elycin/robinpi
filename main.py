@@ -17,12 +17,14 @@ robinhood_interface.login(
 )
 
 # create seven segment device
+# always use port zero because raspberry pi only has one
+
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial)
 seg = sevensegment(device)
 
 while True:
-    equity = round(float(robinhood_interface.portfolios()['equity']), 2)
+    equity = round(float(robinhood_interface.portfolios()['extended_hours_portfolio_equity']), 2)
     print(equity)
     seg.text = str(equity)
     time.sleep(float(config['ticker']['refresh_rate']))

@@ -3,6 +3,7 @@
 from Robinhood import Robinhood
 import configparser
 import time
+import pyotp
 
 from luma.led_matrix.device import max7219
 from luma.core.interface.serial import spi, noop
@@ -18,11 +19,13 @@ serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial)
 seg = sevensegment(device)
 
+totp = pyotp.TOTP(config['robinhood']['multi_factor_secret'])
+
 robinhood_interface = Robinhood()
 robinhood_interface.login(
     username=config['robinhood']['username'],
     password=config['robinhood']['password'],
-    mfa_code=config['robinhood']['multi_factor_secret']
+    mfa_code=totp.now()
 )
 
 while True:

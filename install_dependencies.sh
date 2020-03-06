@@ -75,3 +75,4 @@ function git_clone_and_install_by_pip() {
 
 git_clone_and_install_by_pip Jamonek Robinhood
 git_clone_and_install_by_pip rm-hull luma.led_matrix
+git_clone_and_install_by_pip asweigart pyotp

@@ -35,18 +35,18 @@ seg = sevensegment(device)
 # Generate a TOTP Interface using the provided secret.
 totp = pyotp.TOTP(config['robinhood']['multi_factor_secret'])
 
-marquee_message(seg, "LOGGING IN TO ROBINHOOD.")
-
 # Hook Robinhood API.
 robinhood_interface = Robinhood()
 try:
+    marquee_message(seg, "LOGGING IN TO ROBINHOOD.")
+    # Attempt to login..
     robinhood_interface.login(
         username=config['robinhood']['username'],
         password=config['robinhood']['password'],
         mfa_code=str(totp.now())
     )
 except Exception as e:
-    marquee_message(seg, "EXCEPTION OCCURED WHJILE LOGGING IN")
+    marquee_message(seg, "EXCEPTION OCCURRED WHILE LOGGING IN")
     exit(1)
 
 # Looping.

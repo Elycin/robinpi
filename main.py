@@ -9,7 +9,7 @@ from luma.led_matrix.device import max7219
 from luma.core.interface.serial import spi, noop
 from luma.core.virtual import viewport, sevensegment
 
-
+# Marquee function - provide the device and message.
 def marquee_message(segment_display, msg, delay=0.2):
     # Does same as above but does string slicing itself
     width = seg.device.width
@@ -20,19 +20,20 @@ def marquee_message(segment_display, msg, delay=0.2):
         segment_display.text = msg[i:i + width]
         time.sleep(delay)
 
-
+# Read configuration.
 config = configparser.ConfigParser()
 config.read('config.ini')
 
 # create seven segment device
 # always use port zero because raspberry pi only has one
-
 serial = spi(port=0, device=0, gpio=noop())
 device = max7219(serial)
 seg = sevensegment(device)
 
+# Generate a TOTP Interface using the provided secret.
 totp = pyotp.TOTP(config['robinhood']['multi_factor_secret'])
 
+# Hook Robinhood API.
 robinhood_interface = Robinhood()
 robinhood_interface.login(
     username=config['robinhood']['username'],
@@ -40,6 +41,7 @@ robinhood_interface.login(
     mfa_code=str(totp.now())
 )
 
+# Looping.
 while True:
     # Portfolio paypload.
     portfolio = robinhood_interface.portfolios()

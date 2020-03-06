@@ -29,8 +29,23 @@ robinhood_interface.login(
 )
 
 while True:
-    equity = round(float(robinhood_interface.portfolios()['extended_hours_portfolio_equity']), 2)
-    print(equity)
-    seg.text = str(equity)
-    time.sleep(float(config['ticker']['refresh_rate']))
+    # Portfolio paypload.
+    portfolio = robinhood_interface.portfolios()
 
+    # Variables
+    market = ""
+    equity = 0.0
+
+    # Determine market.
+    if portfolio['extended_hours_portfolio_equity'] is None:
+        market = "TH"  # Trading Hours
+        equity = portfolio['equity']
+    else:
+        market = "AH"  # After Hours
+        equity = portfolio['extended_hours_portfolio_equity']
+
+    # Update Display.
+    seg.text = market + " {:0.2f}".format(equity)
+
+    # Loop Interval.
+    time.sleep(float(config['ticker']['refresh_rate']))

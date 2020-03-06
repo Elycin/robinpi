@@ -45,20 +45,20 @@ while True:
     portfolio = robinhood_interface.portfolios()
 
     # Variables
-    prefix = ""
+    market_status = ""
     equity = 0.0
 
     # Determine market.
     if portfolio['extended_hours_portfolio_equity'] is None:
-        market = "TRADING HOURS"  # Trading Hours
+        market_status = "STOCK MARKET IS OPEN"  # Trading Hours
         equity = portfolio['equity']
     else:
-        market = "AFTER HOURS"  # After Hours
+        market_status = "STOCK MARKET IS CLOSED - AFTER HOURS"  # After Hours
         equity = portfolio['extended_hours_portfolio_equity']
 
     # Update Display.
-    payload = market + " {:0.2f} USD".format(float(equity))
-    marquee_message(seg, payload)
+    marquee_message(seg, market_status)
+    marquee_message(seg, "YOUR EQUITY IS CURRENTLY {:0.2f} USD".format(float(equity)))
 
     # Loop Interval.
     time.sleep(float(config['ticker']['refresh_rate']))

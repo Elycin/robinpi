@@ -57,7 +57,7 @@ while True:
         equity = portfolio['extended_hours_portfolio_equity']
 
     # Update Display.
-    payload = market + " {:0.2f}".format(float(equity))
+    payload = market + " {:0.2f} USD".format(float(equity))
     marquee_message(seg, payload)
 
     # Loop Interval.

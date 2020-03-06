@@ -25,7 +25,7 @@ robinhood_interface = Robinhood()
 robinhood_interface.login(
     username=config['robinhood']['username'],
     password=config['robinhood']['password'],
-    mfa_code=totp.now()
+    mfa_code=str(totp.now())
 )
 
 while True:

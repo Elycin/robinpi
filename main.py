@@ -9,9 +9,13 @@ from luma.led_matrix.device import max7219
 from luma.core.interface.serial import spi, noop
 from luma.core.virtual import viewport, sevensegment
 
+# Read configuration.
+config = configparser.ConfigParser()
+config.read('config.ini')
+
 
 # Marquee function - provide the device and message.
-def marquee_message(segment_display, msg, delay=0.2):
+def marquee_message(segment_display, msg):
     # Does same as above but does string slicing itself
     width = seg.device.width
     padding = " " * width
@@ -19,12 +23,8 @@ def marquee_message(segment_display, msg, delay=0.2):
 
     for i in range(len(msg)):
         segment_display.text = msg[i:i + width]
-        time.sleep(delay)
+        time.sleep(float(config['ticker']['marquee_rate']))
 
-
-# Read configuration.
-config = configparser.ConfigParser()
-config.read('config.ini')
 
 # create seven segment device
 # always use port zero because raspberry pi only has oneb
@@ -71,4 +71,4 @@ while True:
     marquee_message(seg, "YOUR EQUITY IS CURRENTLY {:0.2f} USD".format(float(equity)))
 
     # Loop Interval.
-    time.sleep(float(config['ticker']['refresh_rate']))
+    time.sleep(float(config['ticker']['loop_delay']))

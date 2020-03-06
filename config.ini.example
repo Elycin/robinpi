@@ -4,4 +4,5 @@ password =
 multi_factor_secret =
 
 [ticker]
-refresh_rate = 2
+loop_delay = 1
+marquee_rate = 0.15

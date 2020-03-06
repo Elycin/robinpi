@@ -9,6 +9,18 @@ from luma.led_matrix.device import max7219
 from luma.core.interface.serial import spi, noop
 from luma.core.virtual import viewport, sevensegment
 
+
+def marquee_message(segment_display, msg, delay=0.2):
+    # Does same as above but does string slicing itself
+    width = seg.device.width
+    padding = " " * width
+    msg = padding + msg + padding
+
+    for i in range(len(msg)):
+        segment_display.text = msg[i:i + width]
+        time.sleep(delay)
+
+
 config = configparser.ConfigParser()
 config.read('config.ini')
 
@@ -33,19 +45,20 @@ while True:
     portfolio = robinhood_interface.portfolios()
 
     # Variables
-    market = ""
+    prefix = ""
     equity = 0.0
 
     # Determine market.
     if portfolio['extended_hours_portfolio_equity'] is None:
-        market = "TH"  # Trading Hours
+        market = "TRADING HOURS"  # Trading Hours
         equity = portfolio['equity']
     else:
-        market = "AH"  # After Hours
+        market = "AFTER HOURS"  # After Hours
         equity = portfolio['extended_hours_portfolio_equity']
 
     # Update Display.
-    seg.text = market + " {:0.2f}".format(float(equity))
+    payload = market + " {:0.2f}".format(float(equity))
+    marquee_message(seg, payload)
 
     # Loop Interval.
     time.sleep(float(config['ticker']['refresh_rate']))

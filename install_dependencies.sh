@@ -73,5 +73,5 @@ function git_clone_and_install_by_pip() {
   rm -rf ./$2/
 }
 
-git_clone_and_install_by_pip aamazie Robinhood
+git_clone_and_install_by_pip Jamonek Robinhood
 git_clone_and_install_by_pip rm-hull luma.led_matrix

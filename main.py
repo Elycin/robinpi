@@ -45,7 +45,7 @@ while True:
         equity = portfolio['extended_hours_portfolio_equity']
 
     # Update Display.
-    seg.text = market + " {:0.2f}".format(equity)
+    seg.text = market + " {:0.2f}".format(float(equity))
 
     # Loop Interval.
     time.sleep(float(config['ticker']['refresh_rate']))

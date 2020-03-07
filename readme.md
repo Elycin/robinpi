@@ -1,4 +1,4 @@
-# Robinhood Raspberry Pi Ticker for 7 digit displays
+# Robinhood Raspberry Pi Ticker for seven segment displays.
 https://twitter.com/foxwithpaws/status/1235960968871624705
 
 ## Required Hardware

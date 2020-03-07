@@ -62,25 +62,25 @@ while True:
     # Determine market and equity.
     if portfolio['extended_hours_portfolio_equity'] is None:
         market_status = "STOCK MARKET IS OPEN"  # Trading Hours
-        equity = portfolio['equity']
+        equity = float(portfolio['equity'])
     else:
         market_status = "STOCK MARKET IS CLOSED - AFTER HOURS"  # After Hours
-        equity = portfolio['extended_hours_portfolio_equity']
+        equity = float(portfolio['extended_hours_portfolio_equity'])
 
     # Build equity message
-    equity_message = "YOUR EQUITY IS CURRENTLY {:0.2f} USD.".format(float(equity))
+    equity_message = "YOUR EQUITY IS CURRENTLY {:0.2f} USD.".format(equity)
 
     # Determine change
-    change = portfolio['adjusted_portfolio_equity_previous_close'] - equity
+    change = float(portfolio['adjusted_portfolio_equity_previous_close']) - equity
     change_message = ""
 
     # Build change message
     if change == 0.0:
         change_message = "YOUR EQUITY HAS NOT CHANGED."
     elif change > 0.0:
-        change_message = "YOU GAINED {:0.2f} USD SINCE LAST CLOSE.".format(float(change))
+        change_message = "YOU GAINED {:0.2f} USD SINCE LAST CLOSE.".format(change)
     else:
-        change_message = "YOU LOST {:0.2f} USD SINCE LAST CLOSE.".format(float(change))
+        change_message = "YOU LOST {:0.2f} USD SINCE LAST CLOSE.".format(change)
 
     # Update Display.
     marquee_message(seg, market_status)

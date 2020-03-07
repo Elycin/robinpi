@@ -1,8 +1,15 @@
 [robinhood]
 username =
 password =
+
+# Multi Factor Secret
+# The Robinhood API requires 2FA, you must provide the secret here so the script can automatically generate Time-based One Time Passcodes (TOTPs).
+# This can be obtained by enabling 2FA, clicking "can't scan code"
 multi_factor_secret =
 
 [ticker]
+# After the marquee is done displaying, how long until it should restart?
 loop_delay = 1
+
+# The tick rate of each scroll measured in seconds.
 marquee_rate = 0.15

@@ -62,3 +62,8 @@ systemctl daemon-reload
 systemctl enable robinpi
 systemctl start robinpi
 ```
+### Footnotes
+- Storing your 2FA secret is considered insecure, this project was created in mind of being helpful, not to deliberately jeopardize your credentials if your device running this software is compromised.
+- Please make sure that you properly secure down your device running this script. I am not to be held responsibile and do not provide warranty if it is compromised due to your error/lack of security.
+- There is no license on this code in the repository. You are free to modify it at will.
+- This code makes use of the luma.led_matrix library which contains support for multiple displays. You don't have to use a sevensegment display, but this will require modifying the code.

@@ -23,15 +23,20 @@ totp = pyotp.TOTP("YOUR SECRET HERE")
 six_digit_code = totp.now()
 ```
 
-
- 
 ## Installation
+Note: following this segment will utilize your package manager, it must be ran as root.
 ```sh
 git clone https://github.com/elycin/robinpi.git /opt/robinpi
 cd /opt/robinpi
-# {edit config.ini.example and save as config.ini}
 sudo bash install_dependencies.sh
 ```
+
+## Configuring the script
+- Move to working directory: `cd /opt/robinpi`
+- Copy example configuration: `cp config.ini.example config.ini`
+- Edit configuration and providde requirements: `nano config.ini`
+
+You can either run the script manually by performing `python3 main.py` or by creating a systemd service below.
  
 ## Systemd Service
 A systemd service can be installed by saving the following file to `/lib/systemd/system/robinpi.service` and pasting the following contents:

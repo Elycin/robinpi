@@ -18,7 +18,7 @@ The Robinhood API Requires that you have MFA enabled in order to use the API.
 
 This program works by utilizing the `pyotp` library in order to generate a 6 digit code in realtime with the following snippet:
 ```py
-import pyopt
+import pyotp
 totp = pyotp.TOTP("YOUR SECRET HERE")
 six_digit_code = totp.now()
 ```

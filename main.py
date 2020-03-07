@@ -39,7 +39,7 @@ totp = pyotp.TOTP(config['robinhood']['multi_factor_secret'])
 robinhood_interface = Robinhood()
 try:
     marquee_message(seg, "LOGGING IN TO ROBINHOOD.")
-    # Attempt to login..
+    # Attempt to login.
     robinhood_interface.login(
         username=config['robinhood']['username'],
         password=config['robinhood']['password'],
@@ -51,14 +51,15 @@ except Exception as e:
 
 # Looping.
 while True:
-    # Portfolio paypload.
+    # Portfolio payload.
     portfolio = robinhood_interface.portfolios()
 
     # Variables
     market_status = ""
     equity = 0.0
+    equity_message = ""
 
-    # Determine market.
+    # Determine market and equity.
     if portfolio['extended_hours_portfolio_equity'] is None:
         market_status = "STOCK MARKET IS OPEN"  # Trading Hours
         equity = portfolio['equity']
@@ -66,9 +67,25 @@ while True:
         market_status = "STOCK MARKET IS CLOSED - AFTER HOURS"  # After Hours
         equity = portfolio['extended_hours_portfolio_equity']
 
+    # Build equity message
+    equity_message = "YOUR EQUITY IS CURRENTLY {:0.2f} USD.".format(float(equity))
+
+    # Determine change
+    change = portfolio['adjusted_portfolio_equity_previous_close'] - equity
+    change_message = ""
+
+    # Build change message
+    if change == 0.0:
+        change_message = "YOUR EQUITY HAS NOT CHANGED."
+    elif change > 0.0:
+        change_message = "YOU GAINED {:0.2f} USD SINCE LAST CLOSE.".format(float(change))
+    else:
+        change_message = "YOU LOST {:0.2f} USD SINCE LAST CLOSE.".format(float(change))
+
     # Update Display.
     marquee_message(seg, market_status)
-    marquee_message(seg, "YOUR EQUITY IS CURRENTLY {:0.2f} USD".format(float(equity)))
+    marquee_message(seg, equity_message)
+    marquee_message(seg, change_message)
 
     # Loop Interval.
     time.sleep(float(config['ticker']['loop_delay']))

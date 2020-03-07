@@ -71,7 +71,7 @@ while True:
     equity_message = "YOUR EQUITY IS CURRENTLY {:0.2f} USD.".format(equity)
 
     # Determine change
-    change = float(portfolio['adjusted_portfolio_equity_previous_close']) - equity
+    change = equity - float(portfolio['adjusted_portfolio_equity_previous_close'])
     change_message = ""
 
     # Build change message
